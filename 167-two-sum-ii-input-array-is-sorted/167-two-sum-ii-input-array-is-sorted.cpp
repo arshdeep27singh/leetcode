@@ -8,8 +8,7 @@ public:
         while(left < right){
             v = numbers[left] + numbers[right];
             if(v == target){
-                ans.push_back(left+1);
-                ans.push_back(right+1);
+                ans.insert(ans.end(), {left + 1, right + 1});
                 break;
             } else if(v > target)
                 right--;
