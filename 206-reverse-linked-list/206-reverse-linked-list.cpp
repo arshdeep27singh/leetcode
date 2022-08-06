@@ -19,10 +19,10 @@ public:
             
             ListNode *forward = curr->next;
             curr->next = prev;
-            
             prev = curr;
             curr = forward;
         }
+        
         return prev;
     }
 };
