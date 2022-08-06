@@ -11,20 +11,13 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        
         if(head == NULL || head->next == NULL) return head;
-        if(head->next->next == NULL) return head->next;
-        
-        ListNode* curr = head->next;
-        ListNode* prev = head;
-        
-        while(curr != NULL){
-            
-            curr = curr->next;
-            if(curr != NULL) curr = curr->next;
-            prev = prev->next;
-            
+        ListNode *left = head;
+        ListNode *right = head;
+        while(right != NULL && right->next != NULL){
+                right = right->next->next;
+                left = left->next;
         }
-        return prev;
+        return left;
     }
 };
