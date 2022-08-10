@@ -9,11 +9,41 @@
  * };
  */
 class Solution {
+    
+private:
+    ListNode* getMiddle(ListNode* head){
+        
+        ListNode* slow = head, *fast = head->next;
+        
+        while(fast != nullptr && fast->next!= nullptr){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        
+        return slow;
+    }
+    
+    ListNode* reverse(ListNode* head){
+        
+        ListNode* curr = head, *prev = nullptr, *next = nullptr;
+        while(curr != nullptr){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+    
+    
 public:
     bool isPalindrome(ListNode* head) {
         
-        vector<int> list;
+        if(head->next == NULL) return true;
         
+        //1st approach using linkedlist to array and then check
+        /*
+        vector<int> list;
         ListNode* temp = head;
         while(temp){
             list.push_back(temp->val);
@@ -28,5 +58,32 @@ public:
             right--;
         }
         return  true;
+        */
+        
+        // 2nd approach
+        
+        //step 1
+        ListNode* middle = getMiddle(head);
+        
+        //step 2
+        ListNode* temp = middle->next;
+        middle->next = reverse(temp);
+        
+        //step 3
+        ListNode* head1 = head;
+        ListNode* head2 = middle->next;
+        
+        while(head2 != nullptr){
+            if(head1->val != head2->val) return false;
+            
+            head1 = head1->next;
+            head2 = head2->next;
+        }
+        
+        //step 4 - repeat step 2
+        temp = middle->next;
+        middle->next = reverse(temp);
+        
+        return true;
     }
 };
